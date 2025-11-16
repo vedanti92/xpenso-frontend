@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
+import Input from "../components/Input";
 
 function Signup() {
   const [fullName, setFullName] = useState("");
@@ -25,8 +26,61 @@ function Signup() {
             Create an Account
           </h3>
           <p className="text-sm text-slate-700 text-center mb-8">
-            Level up your spending habits — join today!
+            Level up your spending habits — sign up today!
           </p>
+
+          <form className="space-y-4">
+            <div className="flex justify-center mb-6">
+              {/* Profile image */}
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+              <Input
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+                label="Full Name"
+                placeholder="John Doe"
+                type="text"
+              />
+
+              <Input
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                label="Email"
+                placeholder="abc@example.com"
+                type="text"
+              />
+
+              <div className="col-span-2">
+                <Input
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  label="Password"
+                  placeholder="********"
+                  type="password"
+                />
+              </div>
+            </div>
+            {error && (
+              <p className="text-red-800 text-sm text-center bg-red-50 p-2 rounded">
+                {error}
+              </p>
+            )}
+            <button
+              className="btn-primary w-full py-3 text-lg font-medium"
+              type="submit"
+            >
+              SIGN UP
+            </button>
+            <p className="text-sm text-slate-800 text-center mt-6">
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="font-medium text-primary underline hover:text-primary-dark transition-colors"
+              >
+                Login
+              </Link>
+            </p>
+          </form>
         </div>
       </div>
     </div>
