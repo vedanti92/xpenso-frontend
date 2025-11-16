@@ -66,7 +66,7 @@ function Signup() {
               </p>
             )}
             <button
-              className="btn-primary w-full py-3 text-lg font-medium"
+              className="btn-blue w-full py-3 text-lg font-medium"
               type="submit"
             >
               SIGN UP

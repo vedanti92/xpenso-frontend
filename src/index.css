@@ -6,3 +6,17 @@ body {
   background-color: #fcfbfc;
   overflow-x: hidden;
 }
+
+.btn-blue {
+  border-radius: 10px; /* fully rounded */
+  background-color: #3b82f6; /* blue-500 */
+  padding: 0.5rem 1.25rem;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s ease;
+}
+
+.btn-blue:hover {
+  background-color: #1d4ed8; /* blue-700 */
+}
