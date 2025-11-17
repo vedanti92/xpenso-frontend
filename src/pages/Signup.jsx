@@ -75,7 +75,7 @@ function Signup() {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-medium text-primary underline hover:text-primary-dark transition-colors"
+                className="font-medium text-blue-500 underline hover:text-blue-700 transition-colors"
               >
                 Login
               </Link>
