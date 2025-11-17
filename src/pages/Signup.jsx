@@ -13,7 +13,6 @@ function Signup() {
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
-      {/* Blur background image */}
       <img
         src={assets.background}
         alt="Background"
