@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndpoints";
+import toast from "react-hot-toast";
 
 function Signup() {
   const [fullName, setFullName] = useState("");
@@ -10,6 +14,43 @@ function Signup() {
   const [error, setError] = useState("");
 
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // basic validation
+    if (!fullName.trim()) {
+      setError("Please enter your full name.");
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email.");
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Please enter a valid password.");
+      return;
+    }
+    setError("");
+
+    // signup api call
+    try {
+      const response = await axiosConfig.post(API_ENDPOINTS.REGISTER, {
+        fullName,
+        email,
+        password,
+      });
+      if (response.status === 201) {
+        toast.success("Your account is ready - welcome aboard!");
+        navigate("/login");
+      }
+    } catch (error) {
+      console.error("Something went wrong: ", error);
+      setError(error.message);
+    }
+  };
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
@@ -28,7 +69,7 @@ function Signup() {
             Level up your spending habits — sign up today!
           </p>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex justify-center mb-6">
               {/* Profile image */}
             </div>
