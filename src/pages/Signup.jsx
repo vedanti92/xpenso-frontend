@@ -6,31 +6,37 @@ import { validateEmail } from "../util/validation";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
 
 function Signup() {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     // basic validation
     if (!fullName.trim()) {
       setError("Please enter your full name.");
+      setIsLoading(false);
       return;
     }
 
     if (!validateEmail(email)) {
       setError("Please enter a valid email.");
+      setIsLoading(false);
       return;
     }
 
     if (!password.trim()) {
       setError("Please enter a valid password.");
+      setIsLoading(false);
       return;
     }
     setError("");
@@ -49,6 +55,8 @@ function Signup() {
     } catch (error) {
       console.error("Something went wrong: ", error);
       setError(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -106,10 +114,20 @@ function Signup() {
               </p>
             )}
             <button
-              className="btn-blue w-full py-3 text-lg font-medium"
+              disabled={isLoading}
+              className={`btn-blue w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${
+                isLoading ? "opacity-60 cursor-not-allowed" : ""
+              }`}
               type="submit"
             >
-              SIGN UP
+              {isLoading ? (
+                <>
+                  <LoaderCircle className="animate-spin w-5 h-5" /> Signing
+                  up...
+                </>
+              ) : (
+                "SIGN UP"
+              )}
             </button>
             <p className="text-sm text-slate-800 text-center mt-6">
               Already have an account?{" "}

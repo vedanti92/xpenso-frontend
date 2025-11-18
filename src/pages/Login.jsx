@@ -1,14 +1,65 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { assets } from "../assets/assets";
 import Input from "../components/Input";
+import { validateEmail } from "../util/validation";
+import axiosConfig from "../util/axiosConfig";
+import { API_ENDPOINTS } from "../util/apiEndpoints";
+import toast from "react-hot-toast";
+import { LoaderCircle } from "lucide-react";
+import { AppContext } from "../context/AppContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const { setUser } = useContext(AppContext);
 
   const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    // basic validation
+    if (!validateEmail(email)) {
+      setError("Please enter a valid email.");
+      setIsLoading(false);
+      return;
+    }
+
+    if (!password.trim()) {
+      setError("Please enter a valid password.");
+      setIsLoading(false);
+      return;
+    }
+    setError("");
+
+    // login api call
+    try {
+      const response = await axiosConfig.post(API_ENDPOINTS.LOGIN, {
+        email,
+        password,
+      });
+      const { token, user } = response.data;
+      if (token) {
+        localStorage.setItem("token", token);
+        setUser(user);
+        toast.success("Logged in successfully!");
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        setError(error.response.data.message);
+      } else {
+        console.error("Something went wrong: ", error);
+        setError(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="h-screen w-full relative flex items-center justify-center overflow-hidden">
@@ -27,7 +78,7 @@ function Login() {
             Enter your details to log in.
           </p>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <Input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -49,10 +100,20 @@ function Login() {
               </p>
             )}
             <button
-              className="btn-blue w-full py-3 text-lg font-medium"
+              disabled={isLoading}
+              className={`btn-blue w-full py-3 text-lg font-medium flex items-center justify-center gap-2 ${
+                isLoading ? "opacity-60 cursor-not-allowed" : ""
+              }`}
               type="submit"
             >
-              LOGIN
+              {isLoading ? (
+                <>
+                  <LoaderCircle className="animate-spin w-5 h-5" />
+                  Logging in...
+                </>
+              ) : (
+                "LOGIN"
+              )}
             </button>
             <p className="text-sm text-slate-800 text-center mt-6">
               Don't have an account?{" "}
