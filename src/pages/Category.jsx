@@ -1,7 +1,12 @@
 import React from "react";
+import Dashboard from "../components/Dashboard";
 
 function Category() {
-  return <div>Category</div>;
+  return (
+    <div>
+      <Dashboard activeMenu="Category">This is category page</Dashboard>
+    </div>
+  );
 }
 
 export default Category;
