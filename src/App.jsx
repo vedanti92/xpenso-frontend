@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import Income from "./pages/Income";
 import Expense from "./pages/Expense";
@@ -15,17 +15,27 @@ function App() {
       <Toaster />
       <BrowserRouter>
         <Routes>
-          <Route path="/dashboard" element={<Home />}></Route>
-          <Route path="/income" element={<Income />}></Route>
-          <Route path="/expense" element={<Expense />}></Route>
-          <Route path="/category" element={<Category />}></Route>
-          <Route path="/filter" element={<Filter />}></Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
+          <Route path="/" element={<Root />} />
+          <Route path="/dashboard" element={<Home />} />
+          <Route path="/income" element={<Income />} />
+          <Route path="/expense" element={<Expense />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/filter" element={<Filter />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
       </BrowserRouter>
     </>
   );
 }
+
+const Root = () => {
+  const isAuthenticated = !!localStorage.getItem("token");
+  return isAuthenticated ? (
+    <Navigate to="/dashboard" />
+  ) : (
+    <Navigate to="/login" />
+  );
+};
 
 export default App;
