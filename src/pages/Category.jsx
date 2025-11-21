@@ -50,7 +50,7 @@ function Category() {
           </div>
 
           {/* Category list */}
-          <CategoryList />
+          <CategoryList categories={categoryData} />
 
           {/* Add category model */}
 
