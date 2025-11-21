@@ -6,6 +6,7 @@ import CategoryList from "../components/CategoryList";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
+import Model from "../components/Model";
 
 function Category() {
   useUser();
@@ -44,7 +45,10 @@ function Category() {
           {/* Button to add category list */}
           <div className="flex justify-between items-center mb-5">
             <h2 className="text-2xl font-semibold">All Categories</h2>
-            <button className="add-btn flex items-center gap-1">
+            <button
+              onClick={() => setOpenAddCategoryModel(true)}
+              className="add-btn flex items-center gap-1 cursor-pointer"
+            >
               <Plus size={15} /> Add Category
             </button>
           </div>
@@ -53,6 +57,13 @@ function Category() {
           <CategoryList categories={categoryData} />
 
           {/* Add category model */}
+          <Model
+            title="Add Category"
+            isOpen={openAddCategoryModel}
+            onClose={() => setOpenAddCategoryModel(false)}
+          >
+            Category form
+          </Model>
 
           {/* Edit category model */}
         </div>
