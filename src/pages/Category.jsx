@@ -7,6 +7,7 @@ import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import Model from "../components/Model";
+import AddCategoryForm from "../components/AddCategoryForm";
 
 function Category() {
   useUser();
@@ -47,7 +48,7 @@ function Category() {
             <h2 className="text-2xl font-semibold">All Categories</h2>
             <button
               onClick={() => setOpenAddCategoryModel(true)}
-              className="add-btn flex items-center gap-1 cursor-pointer"
+              className="add-btn flex items-center gap-1 cursor-pointer bg-green-100 py-1 px-2 rounded hover:bg-green-200"
             >
               <Plus size={15} /> Add Category
             </button>
@@ -62,7 +63,7 @@ function Category() {
             isOpen={openAddCategoryModel}
             onClose={() => setOpenAddCategoryModel(false)}
           >
-            Category form
+            <AddCategoryForm />
           </Model>
 
           {/* Edit category model */}
