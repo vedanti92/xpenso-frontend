@@ -39,6 +39,10 @@ function Category() {
     fetchCategoryDetails();
   }, []);
 
+  const handleAddCategory = (category) => {
+    console.log("Category added successfully!", category);
+  };
+
   return (
     <div>
       <Dashboard activeMenu="Category">
@@ -63,7 +67,7 @@ function Category() {
             isOpen={openAddCategoryModel}
             onClose={() => setOpenAddCategoryModel(false)}
           >
-            <AddCategoryForm />
+            <AddCategoryForm onAddCategory={handleAddCategory} />
           </Model>
 
           {/* Edit category model */}

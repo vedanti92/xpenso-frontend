@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Input from "./Input";
+import EmojiPickerPopup from "./EmojiPickerPopup";
 
-function AddCategoryForm() {
+function AddCategoryForm({ onAddCategory }) {
   const [category, setCategory] = useState({
     name: "",
     type: "",
@@ -24,11 +25,20 @@ function AddCategoryForm() {
     setCategory({ ...category, [key]: value });
   };
 
+  const handleSubmit = () => {
+    onAddCategory(category);
+  };
+
   return (
     <div className="p-4">
+      <EmojiPickerPopup
+        icon={category.icon}
+        onSelect={(selectedIcon) => handleChange("icon", selectedIcon)}
+      />
+
       <Input
         value={category.name}
-        onChange={(target) => handleChange("name", target.value)}
+        onChange={({ target }) => handleChange("name", target.value)}
         label="Category Name"
         placeholder="e.g. Salary, Groceries, Travel"
         type="text"
@@ -41,6 +51,16 @@ function AddCategoryForm() {
         isSelect={true}
         options={categoryTypeOptions}
       />
+
+      <div className="flex justify-end mt-6">
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="add-btn add-btn-fill"
+        >
+          Add Category
+        </button>
+      </div>
     </div>
   );
 }
