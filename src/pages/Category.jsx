@@ -1,7 +1,10 @@
 import React from "react";
 import Dashboard from "../components/Dashboard";
+import { useUser } from "../hooks/useUser";
 
 function Category() {
+  useUser();
+
   return (
     <div>
       <Dashboard activeMenu="Category">This is category page</Dashboard>
