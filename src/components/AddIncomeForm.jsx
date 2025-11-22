@@ -89,7 +89,7 @@ function AddIncomeForm({ onAddIncome, categories }) {
         >
           {loading ? (
             <>
-              <LoaderCircle className="w-4 h-4 animate-spin" /> Adding Income...
+              <LoaderCircle className="w-4 h-4 animate-spin" /> Adding...
             </>
           ) : (
             <>Add Income</>

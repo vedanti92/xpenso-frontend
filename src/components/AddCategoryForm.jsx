@@ -93,7 +93,7 @@ function AddCategoryForm({ onAddCategory, initialCategoryData, isEditing }) {
           {loading ? (
             <>
               <LoaderCircle className="w-4 h-4 animate-spin" />
-              {isEditing ? "Updating Category..." : "Adding Category..."}
+              {isEditing ? "Updating..." : "Adding..."}
             </>
           ) : (
             <>{isEditing ? "Update Category" : "Add Category"}</>

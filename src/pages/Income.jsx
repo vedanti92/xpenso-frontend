@@ -8,6 +8,7 @@ import IncomeList from "../components/IncomeList";
 import Model from "../components/Model";
 import { Plus } from "lucide-react";
 import AddIncomeForm from "../components/AddIncomeForm";
+import DeleteAlert from "../components/DeleteAlert";
 
 function Income() {
   const [incomeData, setIncomeData] = useState([]);
@@ -107,6 +108,19 @@ function Income() {
     }
   };
 
+  // delete income
+  const deleteIncome = async (id) => {
+    try {
+      await axiosConfig.delete(API_ENDPOINTS.DELETE_INCOME(id));
+      setOpenDeleteAlert({ show: false, data: null });
+      toast.success("Income entry deleted successfully!");
+      fetchIncomeDetails();
+    } catch (error) {
+      console.error("Error deleting income: ", error);
+      toast.error(error.response.data.message || "Failed to delete income.");
+    }
+  };
+
   useEffect(() => {
     fetchIncomeDetails();
     fetchIncomeCategories();
@@ -132,7 +146,7 @@ function Income() {
 
             <IncomeList
               transactions={incomeData}
-              onDelete={(id) => console.log("deleting the income", id)}
+              onDelete={(id) => setOpenDeleteAlert({ show: true, data: id })}
             />
 
             {/* Add income model */}
@@ -144,6 +158,18 @@ function Income() {
               <AddIncomeForm
                 onAddIncome={(income) => handleAddIncome(income)}
                 categories={categories}
+              />
+            </Model>
+
+            {/* Delete income model */}
+            <Model
+              isOpen={openDeleteAlert.show}
+              onClose={() => setOpenDeleteAlert({ show: false, data: null })}
+              title="Delete Income"
+            >
+              <DeleteAlert
+                content="Are you sure you want to delete this income entry? This action cannot be undone."
+                onDelete={() => deleteIncome(openDeleteAlert.data)}
               />
             </Model>
           </div>
