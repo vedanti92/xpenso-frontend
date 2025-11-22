@@ -4,6 +4,7 @@ import { useUser } from "../hooks/useUser";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
+import IncomeList from "../components/IncomeList";
 
 function Income() {
   const [incomeData, setIncomeData] = useState([]);
@@ -24,7 +25,6 @@ function Income() {
     try {
       const response = await axiosConfig.get(API_ENDPOINTS.GET_ALL_INCOMES);
       if (response.status === 200) {
-        console.log("Income list", response.data);
         setIncomeData(response.data);
       }
     } catch (error) {
@@ -45,7 +45,15 @@ function Income() {
 
   return (
     <div>
-      <Dashboard activeMenu="Income">This is income page</Dashboard>
+      <Dashboard activeMenu="Income">
+        <div className="my-5 mx-auto">
+          <div className="grid grid-cols-1 gap-6">
+            <div>{/* Overview for income with line chart */}</div>
+
+            <IncomeList transactions={incomeData} />
+          </div>
+        </div>
+      </Dashboard>
     </div>
   );
 }
