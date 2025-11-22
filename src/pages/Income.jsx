@@ -50,7 +50,10 @@ function Income() {
           <div className="grid grid-cols-1 gap-6">
             <div>{/* Overview for income with line chart */}</div>
 
-            <IncomeList transactions={incomeData} />
+            <IncomeList
+              transactions={incomeData}
+              onDelete={(id) => console.log("deleting the income", id)}
+            />
           </div>
         </div>
       </Dashboard>

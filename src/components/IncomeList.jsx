@@ -1,19 +1,36 @@
 import { Download, Mail } from "lucide-react";
 import React from "react";
+import TransactionInfoCard from "./TransactionInfoCard";
+import moment from "moment";
 
-function IncomeList({ transactions }) {
+function IncomeList({ transactions, onDelete }) {
   return (
-    <div className="bg-white rounded-2xl shadow-md p-6">
+    <div className="card">
       <div className="flex items-center justify-between">
         <h5 className="text-lg">Income Sources</h5>
         <div className="flex items-center justify-end gap-2">
-          <button className="bg-gray-100 hover:text-blue-500 py-1 px-2 rounded flex items-center gap-1 transition-colors cursor-pointer">
+          <button className="card-btn">
             <Mail size={15} className="text-base" /> Email
           </button>
-          <button className="bg-gray-100 hover:text-blue-500 py-1 px-2 rounded flex items-center gap-1 transition-colors cursor-pointer">
+          <button className="card-btn">
             <Download size={15} className="text-base" /> Download
           </button>
         </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2">
+        {/* Incomes display */}
+        {transactions.map((income) => (
+          <TransactionInfoCard
+            key={income.id}
+            title={income.name}
+            icon={income.icon}
+            date={moment(income.date).format("Do MMM YYYY")}
+            amount={income.amount}
+            type="income"
+            onDelete={() => onDelete(income.id)}
+          />
+        ))}
       </div>
     </div>
   );
