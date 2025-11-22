@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import EmojiPickerPopup from "./EmojiPickerPopup";
+import { LoaderCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 function AddCategoryForm({ onAddCategory }) {
   const [category, setCategory] = useState({
@@ -8,6 +10,8 @@ function AddCategoryForm({ onAddCategory }) {
     type: "",
     icon: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const categoryTypeOptions = [
     { value: "", label: "Select Category", disabled: true },
@@ -25,8 +29,23 @@ function AddCategoryForm({ onAddCategory }) {
     setCategory({ ...category, [key]: value });
   };
 
-  const handleSubmit = () => {
-    onAddCategory(category);
+  const handleSubmit = async () => {
+    if (!category.name.trim()) {
+      toast.error("Please enter a category name.");
+      return;
+    }
+
+    if (!category.type || category.type === "") {
+      toast.error("Please select a category type.");
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await onAddCategory(category);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -56,9 +75,17 @@ function AddCategoryForm({ onAddCategory }) {
         <button
           type="button"
           onClick={handleSubmit}
-          className="add-btn add-btn-fill"
+          disabled={loading}
+          className="bg-blue-500 hover:bg-blue-600 cursor-pointer rounded py-1 px-2 text-white transition-colors"
         >
-          Add Category
+          {loading ? (
+            <>
+              <LoaderCircle className="w-4 h-4 animate-spin" />
+              Adding Category...
+            </>
+          ) : (
+            <>Add Category</>
+          )}
         </button>
       </div>
     </div>

@@ -39,8 +39,39 @@ function Category() {
     fetchCategoryDetails();
   }, []);
 
-  const handleAddCategory = (category) => {
-    console.log("Category added successfully!", category);
+  const handleAddCategory = async (category) => {
+    const { name, type, icon } = category;
+
+    if (!name.trim()) {
+      toast.error("Category name is required.");
+      return;
+    }
+
+    // check if the category already exists
+    const isDuplicate = categoryData.some((category) => {
+      return category.name.toLowerCase() === name.trim().toLowerCase();
+    });
+
+    if (isDuplicate) {
+      toast.error("Category name already exists.");
+      return;
+    }
+
+    try {
+      const response = await axiosConfig.post(API_ENDPOINTS.ADD_CATEGORY, {
+        name,
+        type,
+        icon,
+      });
+      if (response.status === 201) {
+        toast.success("Category added successfully!");
+        setOpenAddCategoryModel(false);
+        fetchCategoryDetails();
+      }
+    } catch (error) {
+      console.error("Error adding category: ", error);
+      toast.error(error.response.data.message || "Failed to add category.");
+    }
   };
 
   return (
