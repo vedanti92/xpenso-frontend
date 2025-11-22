@@ -30,7 +30,7 @@ body {
 }
 
 .add-btn {
-  @apply flex items-center gap-1 cursor-pointer bg-green-100 py-1 px-2 rounded hover:bg-green-200;
+  @apply flex items-center gap-1 cursor-pointer bg-green-100 py-1 px-2 rounded hover:bg-green-200 text-green-600;
 }
 
 .add-btn-fill {

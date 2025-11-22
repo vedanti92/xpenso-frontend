@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EmojiPickerPopup from "./EmojiPickerPopup";
 import Input from "./Input";
+import { LoaderCircle } from "lucide-react";
 
 function AddIncomeForm({ onAddIncome, categories }) {
   const [income, setIncome] = useState({
@@ -10,6 +11,8 @@ function AddIncomeForm({ onAddIncome, categories }) {
     icon: "",
     categoryId: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const categoryOptions = [
     { value: "", label: "Select Category", disabled: true },
@@ -22,6 +25,22 @@ function AddIncomeForm({ onAddIncome, categories }) {
   const handleChange = (key, value) => {
     setIncome({ ...income, [key]: value });
   };
+
+  const handleAddIncome = async () => {
+    setLoading(true);
+    try {
+      await onAddIncome(income);
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    if (categories.length > 0 && !income.categoryId) {
+      setIncome((prev) => ({
+        ...prev,
+        categoryId: categories[0].id,
+      }));
+    }
+  }, [categories, income.categoryId]);
 
   return (
     <div>
@@ -63,8 +82,18 @@ function AddIncomeForm({ onAddIncome, categories }) {
       />
 
       <div className="flex justify-end mt-6">
-        <button onClick={() => onAddIncome(income)} className="add-btn-fill">
-          Add Income
+        <button
+          onClick={handleAddIncome}
+          disabled={loading}
+          className="add-btn-fill"
+        >
+          {loading ? (
+            <>
+              <LoaderCircle className="w-4 h-4 animate-spin" /> Adding Income...
+            </>
+          ) : (
+            <>Add Income</>
+          )}
         </button>
       </div>
     </div>

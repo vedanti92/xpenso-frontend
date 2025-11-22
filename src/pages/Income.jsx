@@ -64,10 +64,46 @@ function Income() {
 
     if (!name.trim()) {
       toast.error("Please enter an income source.");
+      return;
     }
 
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
       toast.error("Please enter a valid amount greater than zero.");
+      return;
+    }
+
+    if (!date) {
+      toast.error("Please enter a date.");
+      return;
+    }
+    const today = new Date().toISOString().split("T")[0];
+    if (date > today) {
+      toast.error("Please select a valid date that is not in the future.");
+      return;
+    }
+
+    if (!categoryId || categoryId === "") {
+      toast.error("Please select a category.");
+      return;
+    }
+
+    try {
+      const response = await axiosConfig.post(API_ENDPOINTS.ADD_INCOME, {
+        name,
+        amount: Number(amount),
+        date,
+        icon,
+        categoryId,
+      });
+      if (response.status === 201) {
+        setOpenAddIncomeModel(false);
+        toast.success("Income added successfully!");
+        fetchIncomeDetails();
+        fetchIncomeCategories();
+      }
+    } catch (error) {
+      console.error("Error adding income: ", error);
+      toast.error(error.response.data.message || "Failed to add income.");
     }
   };
 
@@ -106,7 +142,7 @@ function Income() {
               title="Add Income"
             >
               <AddIncomeForm
-                onAddIncome={(income) => console.log("add income", income)}
+                onAddIncome={(income) => handleAddIncome(income)}
                 categories={categories}
               />
             </Model>
