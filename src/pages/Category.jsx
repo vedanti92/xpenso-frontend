@@ -14,7 +14,7 @@ function Category() {
   const [loading, setLoading] = useState(false);
   const [categoryData, setCategoryData] = useState([]);
   const [openAddCategoryModel, setOpenAddCategoryModel] = useState(false);
-  const [openEditCategoryModel, setEditAddCategoryModel] = useState(false);
+  const [openEditCategoryModel, setOpenEditCategoryModel] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const fetchCategoryDetails = async () => {
@@ -74,6 +74,42 @@ function Category() {
     }
   };
 
+  const handleEditCategory = (categoryToEdit) => {
+    setSelectedCategory(categoryToEdit);
+    setOpenEditCategoryModel(true);
+  };
+
+  const handleUpdateCategory = async (updatedCategory) => {
+    const { id, name, type, icon } = updatedCategory;
+    if (!name.trim()) {
+      toast.error("Category name is required.");
+      return;
+    }
+
+    if (!id) {
+      toast.error("Unable to update the category. Please try again.");
+      return;
+    }
+
+    try {
+      await axiosConfig.put(API_ENDPOINTS.UPDATE_CATEGORY(id), {
+        name,
+        type,
+        icon,
+      });
+      setOpenEditCategoryModel(false);
+      setSelectedCategory(null);
+      toast.success("Category updated successfully!");
+      fetchCategoryDetails();
+    } catch (error) {
+      console.error(
+        "Error updating category: ",
+        error.response.data.message || error.message
+      );
+      toast.error(error.response.data.message || "Failed to update category.");
+    }
+  };
+
   return (
     <div>
       <Dashboard activeMenu="Category">
@@ -90,7 +126,10 @@ function Category() {
           </div>
 
           {/* Category list */}
-          <CategoryList categories={categoryData} />
+          <CategoryList
+            categories={categoryData}
+            onEditCategory={handleEditCategory}
+          />
 
           {/* Add category model */}
           <Model
@@ -102,6 +141,20 @@ function Category() {
           </Model>
 
           {/* Edit category model */}
+          <Model
+            title="Edit Category"
+            isOpen={openEditCategoryModel}
+            onClose={() => {
+              setOpenEditCategoryModel(false);
+              setSelectedCategory(null);
+            }}
+          >
+            <AddCategoryForm
+              initialCategoryData={selectedCategory}
+              onAddCategory={handleUpdateCategory}
+              isEditing={true}
+            />
+          </Model>
         </div>
       </Dashboard>
     </div>

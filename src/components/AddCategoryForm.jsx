@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Input from "./Input";
 import EmojiPickerPopup from "./EmojiPickerPopup";
 import { LoaderCircle } from "lucide-react";
 import toast from "react-hot-toast";
 
-function AddCategoryForm({ onAddCategory }) {
+function AddCategoryForm({ onAddCategory, initialCategoryData, isEditing }) {
   const [category, setCategory] = useState({
     name: "",
     type: "",
@@ -12,6 +12,18 @@ function AddCategoryForm({ onAddCategory }) {
   });
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isEditing && initialCategoryData) {
+      setCategory(initialCategoryData);
+    } else {
+      setCategory({
+        name: "",
+        type: "",
+        icon: "",
+      });
+    }
+  }, [isEditing, initialCategoryData]);
 
   const categoryTypeOptions = [
     { value: "", label: "Select Category", disabled: true },
@@ -81,10 +93,10 @@ function AddCategoryForm({ onAddCategory }) {
           {loading ? (
             <>
               <LoaderCircle className="w-4 h-4 animate-spin" />
-              Adding Category...
+              {isEditing ? "Updating Category..." : "Adding Category..."}
             </>
           ) : (
-            <>Add Category</>
+            <>{isEditing ? "Update Category" : "Add Category"}</>
           )}
         </button>
       </div>

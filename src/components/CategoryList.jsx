@@ -1,7 +1,7 @@
 import { ChevronRight, Pencil } from "lucide-react";
 import React from "react";
 
-function CategoryList({ categories, onEditCategory, onDeleteCategory }) {
+function CategoryList({ categories, onEditCategory }) {
   return (
     <div className="card p-4">
       <div className="flex items-center justify-between mb-4">
@@ -48,7 +48,10 @@ function CategoryList({ categories, onEditCategory, onDeleteCategory }) {
 
                 {/* Action buttons */}
                 <div className="flex items-center gap-2">
-                  <button className="text-gray-400 hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                  <button
+                    onClick={() => onEditCategory(category)}
+                    className="text-gray-400 hover:text-blue-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                  >
                     <Pencil size={18} />
                   </button>
                 </div>
