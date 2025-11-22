@@ -26,7 +26,7 @@ body {
 }
 
 .card-btn {
-  @apply bg-gray-100 hover:text-blue-500 hover:bg-blue-50 py-1 px-2 rounded flex items-center gap-1 transition-colors cursor-pointer;
+  @apply flex bg-gray-100 hover:text-blue-500 hover:bg-blue-50 py-1 px-2 rounded items-center gap-1 transition-colors cursor-pointer;
 }
 
 .add-btn {
@@ -34,5 +34,5 @@ body {
 }
 
 .add-btn-fill {
-  @apply bg-blue-500 hover:bg-blue-600 cursor-pointer rounded py-1 px-2 text-white transition-colors;
+  @apply flex bg-blue-500 hover:bg-blue-600 cursor-pointer rounded py-1 px-2 text-white transition-colors items-center gap-1;
 }
