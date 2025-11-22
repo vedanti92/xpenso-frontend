@@ -119,7 +119,7 @@ function Category() {
             <h2 className="text-2xl font-semibold">All Categories</h2>
             <button
               onClick={() => setOpenAddCategoryModel(true)}
-              className="add-btn flex items-center gap-1 cursor-pointer bg-green-100 py-1 px-2 rounded hover:bg-green-200"
+              className="add-btn"
             >
               <Plus size={15} /> Add Category
             </button>
