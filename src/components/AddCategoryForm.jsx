@@ -88,7 +88,7 @@ function AddCategoryForm({ onAddCategory, initialCategoryData, isEditing }) {
           type="button"
           onClick={handleSubmit}
           disabled={loading}
-          className="bg-blue-500 hover:bg-blue-600 cursor-pointer rounded py-1 px-2 text-white transition-colors"
+          className="add-btn-fill"
         >
           {loading ? (
             <>

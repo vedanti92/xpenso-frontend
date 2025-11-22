@@ -7,6 +7,7 @@ import toast from "react-hot-toast";
 import IncomeList from "../components/IncomeList";
 import Model from "../components/Model";
 import { Plus } from "lucide-react";
+import AddIncomeForm from "../components/AddIncomeForm";
 
 function Income() {
   const [incomeData, setIncomeData] = useState([]);
@@ -57,6 +58,19 @@ function Income() {
     }
   };
 
+  // save the income details
+  const handleAddIncome = async (income) => {
+    const { name, amount, date, icon, categoryId } = income;
+
+    if (!name.trim()) {
+      toast.error("Please enter an income source.");
+    }
+
+    if (!amount || isNaN(amount) || Number(amount) <= 0) {
+      toast.error("Please enter a valid amount greater than zero.");
+    }
+  };
+
   useEffect(() => {
     fetchIncomeDetails();
     fetchIncomeCategories();
@@ -91,7 +105,10 @@ function Income() {
               onClose={() => setOpenAddIncomeModel(false)}
               title="Add Income"
             >
-              Income form
+              <AddIncomeForm
+                onAddIncome={(income) => console.log("add income", income)}
+                categories={categories}
+              />
             </Model>
           </div>
         </div>
