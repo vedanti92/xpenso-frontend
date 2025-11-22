@@ -39,8 +39,27 @@ function Income() {
     }
   };
 
+  // fetch categories for income
+  const fetchIncomeCategories = async () => {
+    try {
+      const response = await axiosConfig.get(
+        API_ENDPOINTS.CATEGORY_BY_TYPE("income")
+      );
+      if (response.status === 200) {
+        console.log("income categories", response.data);
+        setCategories(response.data);
+      }
+    } catch (error) {
+      console.log("Failed to fetch the income categories: ", error);
+      toast.error(
+        error.data.response.message || "Failed to fetch the income categories."
+      );
+    }
+  };
+
   useEffect(() => {
     fetchIncomeDetails();
+    fetchIncomeCategories();
   }, []);
 
   useUser();
