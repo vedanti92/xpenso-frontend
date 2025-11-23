@@ -15,12 +15,14 @@ function CustomTooltip({ active, payload, label }) {
 
     return (
       <div className="p-4 bg-white rounded-2xl shadow-lg border border-gray-100 text-sm min-w-[160px]">
-        <p className="font-bold text-gray-900 mb-2">{item.month}</p>
+        <p className="font-bold text-sm text-gray-900 mb-2">{item.month}</p>
+
+        <div className="w-full h-[1px] bg-gray-100 my-2"></div>
 
         <div className="mb-2">
-          <span className="font-bold text-gray-800">Total: </span>
+          <span className="font-bold text-sm text-gray-800">Total: </span>
           {/* Changed text color to Blue */}
-          <span className="font-bold text-[#2563EB] text-base">
+          <span className="font-bold text-[#2563EB] text-sm text-base">
             ₹{item.totalAmount.toLocaleString()}
           </span>
         </div>
@@ -31,7 +33,7 @@ function CustomTooltip({ active, payload, label }) {
         {item.items && item.items.length > 0 ? (
           item.items.map((i, idx) => (
             <div key={idx} className="flex justify-between items-center mb-1">
-              <span className="text-gray-700">{i.categoryName}</span>
+              <span className="text-gray-700 text-xs">{i.categoryName}:</span>
               <span className="text-gray-700 font-medium">
                 ₹{i.amount.toLocaleString()}
               </span>
