@@ -6,7 +6,6 @@ import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import IncomeList from "../components/IncomeList";
 import Model from "../components/Model";
-import { Plus } from "lucide-react";
 import AddIncomeForm from "../components/AddIncomeForm";
 import DeleteAlert from "../components/DeleteAlert";
 import IncomeOverview from "../components/IncomeOverview";
@@ -121,6 +120,14 @@ function Income() {
     }
   };
 
+  const handleDownloadIncomeDetails = () => {
+    console.log("download");
+  };
+
+  const handleEmailIncomeDetails = () => {
+    console.log("email");
+  };
+
   useEffect(() => {
     fetchIncomeDetails();
     fetchIncomeCategories();
@@ -134,19 +141,18 @@ function Income() {
         <div className="my-5 mx-auto">
           <div className="grid grid-cols-1 gap-6">
             <div>
-              <button
-                onClick={() => setOpenAddIncomeModel(true)}
-                className="add-btn"
-              >
-                <Plus size={15} /> Add Income
-              </button>
               {/* Overview for income with line chart */}
-              <IncomeOverview transactions={incomeData} />
+              <IncomeOverview
+                transactions={incomeData}
+                onAddIncome={() => setOpenAddIncomeModel(true)}
+              />
             </div>
 
             <IncomeList
               transactions={incomeData}
               onDelete={(id) => setOpenDeleteAlert({ show: true, data: id })}
+              onDownload={handleDownloadIncomeDetails}
+              onEmail={handleEmailIncomeDetails}
             />
 
             {/* Add income model */}

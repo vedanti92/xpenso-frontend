@@ -21,7 +21,6 @@ function CustomTooltip({ active, payload, label }) {
 
         <div className="mb-2">
           <span className="font-bold text-sm text-gray-800">Total: </span>
-          {/* Changed text color to Blue */}
           <span className="font-bold text-[#2563EB] text-sm text-base">
             ₹{item.totalAmount.toLocaleString()}
           </span>
@@ -40,7 +39,7 @@ function CustomTooltip({ active, payload, label }) {
             </div>
           ))
         ) : (
-          <div className="text-gray-400 text-xs">No category details</div>
+          <div className="text-gray-400 text-xs">No category details.</div>
         )}
       </div>
     );
@@ -52,7 +51,7 @@ export default function IncomeOverview({ data }) {
   if (!data || data.length === 0)
     return (
       <div className="h-64 flex items-center justify-center text-gray-400">
-        No data available
+        No data available.
       </div>
     );
 
@@ -65,7 +64,6 @@ export default function IncomeOverview({ data }) {
             margin={{ top: 20, right: 20, left: 0, bottom: 0 }}
           >
             <defs>
-              {/* Blue Gradient Definition */}
               <linearGradient id="colorBlue" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#2563EB" stopOpacity={0.3} />
                 <stop offset="95%" stopColor="#2563EB" stopOpacity={0} />
