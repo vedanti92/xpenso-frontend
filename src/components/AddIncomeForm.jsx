@@ -33,15 +33,6 @@ function AddIncomeForm({ onAddIncome, categories }) {
     } catch (error) {}
   };
 
-  useEffect(() => {
-    if (categories.length > 0 && !income.categoryId) {
-      setIncome((prev) => ({
-        ...prev,
-        categoryId: categories[0].id,
-      }));
-    }
-  }, [categories, income.categoryId]);
-
   return (
     <div>
       <EmojiPickerPopup

@@ -9,6 +9,7 @@ import Model from "../components/Model";
 import { Plus } from "lucide-react";
 import AddIncomeForm from "../components/AddIncomeForm";
 import DeleteAlert from "../components/DeleteAlert";
+import IncomeOverview from "../components/IncomeOverview";
 
 function Income() {
   const [incomeData, setIncomeData] = useState([]);
@@ -48,7 +49,6 @@ function Income() {
         API_ENDPOINTS.CATEGORY_BY_TYPE("income")
       );
       if (response.status === 200) {
-        console.log("income categories", response.data);
         setCategories(response.data);
       }
     } catch (error) {
@@ -134,14 +134,14 @@ function Income() {
         <div className="my-5 mx-auto">
           <div className="grid grid-cols-1 gap-6">
             <div>
-              {/* Overview for income with line chart */}
-
               <button
                 onClick={() => setOpenAddIncomeModel(true)}
                 className="add-btn"
               >
                 <Plus size={15} /> Add Income
               </button>
+              {/* Overview for income with line chart */}
+              <IncomeOverview transactions={incomeData} />
             </div>
 
             <IncomeList

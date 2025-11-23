@@ -27,3 +27,42 @@ export const addThousandsSeparator = (num) => {
   // combine integer and decimal parts
   return decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
 };
+
+export function prepareIncomeLineChartData(transactions = []) {
+  if (!Array.isArray(transactions)) return [];
+
+  const grouped = {};
+
+  transactions.forEach((t) => {
+    const date = t.date;
+
+    if (!date) return;
+
+    if (!grouped[date]) {
+      grouped[date] = {
+        date,
+        totalAmount: 0,
+        items: [],
+      };
+    }
+
+    grouped[date].totalAmount += Number(t.amount);
+    grouped[date].items.push(t);
+  });
+
+  const result = Object.values(grouped).map((entry) => {
+    const dt = new Date(entry.date);
+
+    const day = dt.getDate();
+    const suffix =
+      day === 1 ? "st" : day === 2 ? "nd" : day === 3 ? "rd" : "th";
+
+    entry.month = `${day}${suffix} ${dt.toLocaleString("default", {
+      month: "short",
+    })}`;
+
+    return entry;
+  });
+
+  return result.sort((a, b) => new Date(a.date) - new Date(b.date));
+}
