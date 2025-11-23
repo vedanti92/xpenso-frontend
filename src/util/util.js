@@ -28,7 +28,7 @@ export const addThousandsSeparator = (num) => {
   return decimalPart ? `${integerPart}.${decimalPart}` : integerPart;
 };
 
-export function prepareIncomeLineChartData(transactions = []) {
+export function prepareLineChartData(transactions = []) {
   if (!Array.isArray(transactions)) return [];
 
   const grouped = {};

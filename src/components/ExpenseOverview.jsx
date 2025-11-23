@@ -3,7 +3,7 @@ import { prepareLineChartData } from "../util/util";
 import CustomLineChart from "./CustomLineChart";
 import { Plus } from "lucide-react";
 
-function IncomeOverview({ transactions, onAddIncome }) {
+function ExpenseOverview({ transactions, onAddExpense }) {
   const [chartData, setChartData] = useState([]);
   useEffect(() => {
     const result = prepareLineChartData(transactions);
@@ -17,13 +17,13 @@ function IncomeOverview({ transactions, onAddIncome }) {
     <div className="card">
       <div className="flex items-center justify-between">
         <div>
-          <h5 className="text-lg">Income Overview</h5>
+          <h5 className="text-lg">Expense Overview</h5>
           <p className="text-xs text-gray-400 mt-0 5">
             Track earnings and analyze trends.
           </p>
         </div>
-        <button onClick={onAddIncome} className="add-btn">
-          <Plus size={15} /> Add Income
+        <button onClick={onAddExpense} className="add-btn">
+          <Plus size={15} /> Add Expense
         </button>
       </div>
       <div className="mt-10 w-full min-w-0 min-h-[300px]">
@@ -33,4 +33,4 @@ function IncomeOverview({ transactions, onAddIncome }) {
   );
 }
 
-export default IncomeOverview;
+export default ExpenseOverview;
