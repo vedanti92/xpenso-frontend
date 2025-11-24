@@ -5,6 +5,8 @@ import { Search } from "lucide-react";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
+import TransactionInfoCard from "../components/TransactionInfoCard";
+import moment from "moment";
 
 function Filter() {
   const [type, setType] = useState("");
@@ -18,6 +20,23 @@ function Filter() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+
+    // validation
+    if (!type) {
+      toast.error("Please select a transaction type.");
+      return;
+    }
+
+    if (!sortField) {
+      toast.error("Please select a sort field.");
+      return;
+    }
+
+    if (!sortOrder) {
+      toast.error("Please select a sort order.");
+      return;
+    }
+
     setLoading(true);
     try {
       const response = await axiosConfig.post(API_ENDPOINTS.APPLY_FILTER, {
@@ -47,8 +66,12 @@ function Filter() {
             <h2 className="text-2xl font-semibold">Filter Transactions</h2>
           </div>
           <div className="card p-4 mb-4">
-            <div className="flex items-center justify-between mb-4">
-              <h5 className="text-lg font-semibold">Select the filters</h5>
+            <div className="mb-4">
+              <h5 className="text-lg font-semibold">Select Filters</h5>
+              <p className="text-xs text-red-500">
+                * To begin searching, make sure "Type", "Sort Field", and "Sort
+                Order" are selected.
+              </p>
             </div>
             <form className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 gap-4">
               <div>
@@ -158,7 +181,7 @@ function Filter() {
                     onChange={(e) => setKeyword(e.target.value)}
                     id="keyword"
                     type="text"
-                    placeholder="Search"
+                    placeholder="Search..."
                     className="w-full border rounded px-3 py-2"
                   />
                 </div>
@@ -170,6 +193,35 @@ function Filter() {
                 </button>
               </div>
             </form>
+          </div>
+          <div className="card p-4">
+            <div className="flex justify-between items-center mb-4">
+              <h5 className="text-2xl font-semibold">Results</h5>
+            </div>
+            {transacttions.length === 0 && !loading ? (
+              <p className="text-gray-500">
+                Use the filters and hit the search button to view matching
+                transactions.
+              </p>
+            ) : (
+              ""
+            )}
+            {loading ? (
+              <p className="text-gray-500">Loading Transactions...</p>
+            ) : (
+              ""
+            )}
+            {transacttions.map((transacttion) => (
+              <TransactionInfoCard
+                key={transacttion.id}
+                title={transacttion.name}
+                icon={transacttion.icon}
+                date={moment(transacttion.date).format("Do MMM YYYY")}
+                amount={transacttion.amount}
+                type={type}
+                hideDeleteBtn
+              />
+            ))}
           </div>
         </div>
       </Dashboard>
