@@ -34,7 +34,7 @@ export default function CustomPieChart({
         </PieChart>
       </ResponsiveContainer>
 
-      {data.length > 0 && (
+      {totalAmount !== 0 && (
         <div className="flex items-center justify-center gap-6 mt-10 flex-wrap">
           {data.map((item, index) => (
             <div key={index} className="flex items-center gap-2">
