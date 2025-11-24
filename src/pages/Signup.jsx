@@ -60,6 +60,9 @@ function Signup() {
       });
       if (response.status === 201) {
         toast.success("Your account is ready - welcome aboard!");
+        toast.success(
+          "Please check your email to activate your account before logging in."
+        );
         navigate("/login");
       }
     } catch (error) {
