@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
+import RecentTransactions from "../components/RecentTransactions";
 
 function Home() {
   const navigate = useNavigate();
@@ -47,24 +48,28 @@ function Home() {
             <InfoCard
               icon={<WalletCards />}
               label="Total Balance"
-              value={addThousandsSeparator(dashboardData.totalBalance || 0)}
+              value={addThousandsSeparator(dashboardData?.totalBalance || 0)}
               color="bg-blue-500"
             />
             <InfoCard
               icon={<Wallet />}
               label="Total Income"
-              value={addThousandsSeparator(dashboardData.totalIncome || 0)}
+              value={addThousandsSeparator(dashboardData?.totalIncome || 0)}
               color="bg-green-500"
             />
             <InfoCard
               icon={<Coins />}
               label="Total Expense"
-              value={addThousandsSeparator(dashboardData.totalExpense || 0)}
+              value={addThousandsSeparator(dashboardData?.totalExpense || 0)}
               color="bg-red-500"
             />
           </div>
           <div className="grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             {/* Recent transactions */}
+            <RecentTransactions
+              transactions={dashboardData?.recentTransactions}
+              onMore={() => navigate("/expense")}
+            />
 
             {/* Finance overview chart */}
 
