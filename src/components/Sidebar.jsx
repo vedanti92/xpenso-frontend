@@ -9,7 +9,7 @@ function Sidebar({ activeMenu }) {
   const navigate = useNavigate();
 
   return (
-    <div className="w-64 h-[calc(100vh-60px)] bg-white border-gray-200/50 p-5 sticky top[60px] z-20">
+    <div className="w-65 h-[calc(100vh-60px)] bg-white border-gray-200/50 p-5 fixed top[60px] z-20">
       <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
         {user.profileImageUrl ? (
           <img

@@ -34,17 +34,19 @@ export default function CustomPieChart({
         </PieChart>
       </ResponsiveContainer>
 
-      <div className="flex items-center justify-center gap-6 mt-10 flex-wrap">
-        {data.map((item, index) => (
-          <div key={index} className="flex items-center gap-2">
-            <span
-              className="w-3 h-3 rounded-full inline-block"
-              style={{ backgroundColor: colors[index % colors.length] }}
-            ></span>
-            <p className="text-sm text-gray-700">{item.name}</p>
-          </div>
-        ))}
-      </div>
+      {data.length > 0 && (
+        <div className="flex items-center justify-center gap-6 mt-10 flex-wrap">
+          {data.map((item, index) => (
+            <div key={index} className="flex items-center gap-2">
+              <span
+                className="w-3 h-3 rounded-full inline-block"
+                style={{ backgroundColor: colors[index % colors.length] }}
+              ></span>
+              <p className="text-sm text-gray-700">{item.name}</p>
+            </div>
+          ))}
+        </div>
+      )}
 
       {showTextAnchor && (
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">

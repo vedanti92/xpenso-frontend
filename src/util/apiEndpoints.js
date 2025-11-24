@@ -1,5 +1,5 @@
-// export const BASE_URL = "https://xpenso-178l.onrender.com/api/v1.0";
-export const BASE_URL = "http://localhost:8080/api/v1.0";
+// export const BASE_URL = "https://xpenso-178l.onrender.com";
+export const BASE_URL = "http://localhost:8080";
 
 const CLOUDINARY_CLOUD_NAME = "dui1ebto3";
 
