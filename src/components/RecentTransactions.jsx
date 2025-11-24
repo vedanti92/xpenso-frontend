@@ -12,20 +12,20 @@ function RecentTransactions({ transactions, onMore }) {
         <button className="card-btn" onClick={onMore}>
           More <ArrowRight size={15} className="text-base" />
         </button>
+      </div>
 
-        <div className="mt-6">
-          {transactions?.slice(0, 5).map((item) => (
-            <TransactionInfoCard
-              key={item.id}
-              title={item.name}
-              icon={item.icon}
-              date={moment(item.date).format("Do MMM YYYY")}
-              amount={item.amount}
-              type={item.type}
-              hideDeleteBtn
-            />
-          ))}
-        </div>
+      <div className="mt-6">
+        {transactions?.slice(0, 5).map((item) => (
+          <TransactionInfoCard
+            key={item.id}
+            title={item.name}
+            icon={item.icon}
+            date={moment(item.date).format("Do MMM YYYY")}
+            amount={item.amount}
+            type={item.type}
+            hideDeleteBtn
+          />
+        ))}
       </div>
     </div>
   );

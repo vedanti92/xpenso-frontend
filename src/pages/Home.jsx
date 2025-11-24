@@ -9,6 +9,7 @@ import axiosConfig from "../util/axiosConfig";
 import { API_ENDPOINTS } from "../util/apiEndpoints";
 import toast from "react-hot-toast";
 import RecentTransactions from "../components/RecentTransactions";
+import FinanceOverview from "../components/FinanceOverview";
 
 function Home() {
   const navigate = useNavigate();
@@ -64,7 +65,7 @@ function Home() {
               color="bg-red-500"
             />
           </div>
-          <div className="grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
             {/* Recent transactions */}
             <RecentTransactions
               transactions={dashboardData?.recentTransactions}
@@ -72,6 +73,11 @@ function Home() {
             />
 
             {/* Finance overview chart */}
+            <FinanceOverview
+              totalBalance={dashboardData?.totalBalance || 0}
+              totalIncome={dashboardData?.totalIncome || 0}
+              totalExpense={dashboardData?.totalExpense || 0}
+            />
 
             {/* Expense transactions */}
 
