@@ -36,7 +36,7 @@ export default function CustomPieChart({
         </PieChart>
       </ResponsiveContainer>
 
-      {amount !== 0 && (
+      {data.some((item) => item.amount > 0) && (
         <div className="flex items-center justify-center gap-6 mt-10 flex-wrap">
           {data.map((item, index) => (
             <div key={index} className="flex items-center gap-2">
@@ -49,6 +49,7 @@ export default function CustomPieChart({
           ))}
         </div>
       )}
+
       {showTextAnchor && (
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <p className="text-xs text-gray-400">{label}</p>
