@@ -37,11 +37,11 @@ xpenso-frontend/
 └── README.md
 
 ## ✨ Key Features
-📈 Interactive dashboard with charts and summaries
-🔍 Advanced filtering for financial data
-🔐 JWT-based authentication flow
-🎨 Clean, modern UI with Tailwind CSS
-📱 Fully responsive across devices
+- 📈 Interactive dashboard with charts and summaries
+- 🔍 Advanced filtering for financial data
+- 🔐 JWT-based authentication flow
+- 🎨 Clean, modern UI with Tailwind CSS
+- 📱 Fully responsive across devices
 
 ---
 
